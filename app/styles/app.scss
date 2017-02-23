@@ -16,6 +16,7 @@ img {
   max-width: 100%;
 }
 
+// Intro Page
 .banner{
   height: 50vh;
   width: 100%;
@@ -31,6 +32,17 @@ img {
  width: 50%;
 }
 
+// Order Page
+h2{
+  text-align: center;
+}
+
+.order-bar{
+  // position: fixed;
+}
+
 .order-items{
   list-style: none;
 }
+
+// Menu Page

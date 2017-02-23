@@ -23,6 +23,10 @@ var OrderContainer = React.createClass({
     ]
     this.setState({menuItems: currentMenuItems});
   },
+  addItem: function(){
+    console.log('Container Click');
+    return null;
+  },
   render: function(){
     return (
       <div>
@@ -38,52 +42,96 @@ var OrderContainer = React.createClass({
 
 var CheckOutBanner = React.createClass({
   getInitialState: function(){
-    var currentOrder = new models.OrderItem;
+    var currentOrder = null;
     var menuItems = this.props.data.menuItems;
     return {
       menuItems: menuItems,
       currentOrder: currentOrder
     }
   },
+  componentWillMount:function(){
+
+  },
+  addItem: function(){
+    console.log('banner clicked');
+    return null;
+  },
   render: function(){
-    console.log(this.state);
+    console.log(this);
+    var self = this;
     return(
       <div>
-        <MenuList data={this.state}/>
+        <div className="order-bar">
+          <h2>Order Info:</h2>
+          <div className="">
+            Items Ordered:
+          </div>
+          <div>
+            Total:
+          </div>
+          <div>
+            Estimated Wait:
+          </div>
+        </div>
+        <MenuList data={this.state} AddItem={self.AddItem}/>
       </div>
     )
   }
 });
 
 var MenuList = React.createClass({
+  // propTypes: {
+  //   addItem: React.PropTypes.func.isRequired
+  // },
   getInitialState:function(){
-    console.log(this.props.data);
-    var menuItems = this.props.data.menuItems
+    var menuItems = this.props.data.menuItems;
+    var currentOrder = new models.OrderItem;
     return{
       menuItems: menuItems
     }
   },
+  addItem: function(){
+    console.log('menu clicked', this.props);
+    this.props.addItem();
+  },
   componentWillMount: function(){
+  },
+  render: function(){
+    //Rendering menu List
+    console.log();
+    var self = this;
     var listedItems = this.state.menuItems;
     var refinedList = listedItems.map(function(item, index){
       return (
         <li key={index}>
-          <div className="col-xs-7">
+          <div className="col-xs-4">
             {item.name}
           </div>
-          <div className="col-xs-5">
+          <div className="col-xs-4">
             {item.price}
+          </div>
+          <div className="col-xs-4">
+            <div className="input-group">
+              <input className="form-control" placeholder="Qty" />
+              <span className="input-group-btn">
+                <button className="btn"
+                  onClick={function(e){
+                    e.preventDefault();
+                    self.addItem();
+                  }}
+                >
+                  Order This
+                </button>
+              </span>
+            </div>
           </div>
         </li>
       )
     });
-    this.setState({menuItems: refinedList});
-  },
-  render: function(){
-    console.log(this.state.menuItems);
+
     return(
       <ul className="order-items">
-        {this.state.menuItems}
+        {refinedList}
       </ul>
     )
   }
