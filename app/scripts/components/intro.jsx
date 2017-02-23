@@ -27,7 +27,7 @@ var MenuView = React.createClass({
     return (
       <a href="#menu">
         <div className="menu-left">
-          Menu View
+          Check out our menu
         </div>
       </a>
     )
@@ -39,7 +39,7 @@ var OrderView = React.createClass({
     return (
       <a href="#order">
         <div className="order-right">
-          OrderView
+          Place your order
         </div>
       </a>
     )
