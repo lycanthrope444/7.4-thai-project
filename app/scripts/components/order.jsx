@@ -7,7 +7,7 @@ var OrderContainer = React.createClass({
   getInitialState: function(){
     var menuItems = new models.MenuItemCollection();
     var activeOrders = new models.OrderCollection();
-    var currentOrder = [];
+    var currentOrder = new models.OrderCollection();
     return {
       menuItems: menuItems,
       activeOrders: activeOrders,
@@ -16,19 +16,19 @@ var OrderContainer = React.createClass({
   },
   componentWillMount: function(){
     var currentMenuItems = [
-      {name: 'Spring rolls', price: 5, qty: 1},
-      {name: 'Tom-Ka Gai', price: 5, qty: 1},
-      {name: 'Pad Thai', price: 8, qty: 1},
-      {name: 'Yellow Curry', price: 9, qty: 1}
+      {name: 'Spring rolls', price: 5},
+      {name: 'Tom-Ka Gai', price: 5},
+      {name: 'Pad Thai', price: 8},
+      {name: 'Yellow Curry', price: 9}
     ]
     this.setState({menuItems: currentMenuItems});
   },
   addItem: function(item, qty){
-    var holding = this.state.currentOrder;
     var orderManager = new models.OrderItem({item: item, qty:qty});
+    var holding = this.state.currentOrder;
     holding.push(orderManager);
-    this.setState({currentOrder: holding});
-    console.log(this.state.currentOrder);
+    this.state.currentOrder.add(holding);
+    // console.log(this.state.currentOrder);
   },
   render: function(){
     return (
@@ -50,22 +50,26 @@ var CheckOutBanner = React.createClass({
     return {
       menuItems: menuItems,
       currentOrder: currentOrder,
+      addedItem: ''
     }
   },
   componentWillMount:function(){
 
   },
   addItem: function(item, qty){
-    this.setState({currentOrder: item.name, qty:qty});
+    this.setState({addedItem: item.name, qty:qty});
 
     this.props.addItem(this.state.currentOrder, this.state.qty);
-    console.log(this.state);
+    // console.log(this.state.currentOrder);
     return null;
   },
   render: function(){
     // console.log(this);
     var self = this;
-    var itemOrdered = this.state.currentOrder;
+    console.log(this.state.currentOrder);
+    var itemOrdered = this.state.addedItem;
+
+    console.log(this.props.data.currentOrder);
     var qty = this.state.qty;
     return(
       <div>
@@ -94,7 +98,6 @@ var MenuList = React.createClass({
   // },
   getInitialState:function(){
     var menuItems = this.props.data.menuItems;
-    var currentOrder = new models.OrderItem;
     return{
       menuItems: menuItems
     }
@@ -129,7 +132,7 @@ var MenuListItem = React.createClass({
     this.setState({qty:event.target.value});
   },
   addItem: function(item){
-    console.log('menu list item',this.state);
+    // console.log('menu list item',this.state);
 
     this.props.addItem(item, this.state.qty);
   },
