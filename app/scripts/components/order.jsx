@@ -7,7 +7,7 @@ var OrderContainer = React.createClass({
   getInitialState: function(){
     var menuItems = new models.MenuItemCollection();
     var activeOrders = new models.OrderCollection();
-    var currentOrder = null;
+    var currentOrder = [];
     return {
       menuItems: menuItems,
       activeOrders: activeOrders,
@@ -23,9 +23,12 @@ var OrderContainer = React.createClass({
     ]
     this.setState({menuItems: currentMenuItems});
   },
-  addItem: function(item){
-    console.log(item);
-    return null;
+  addItem: function(item, qty){
+    var holding = this.state.currentOrder;
+    var orderManager = new models.OrderItem({item: item, qty:qty});
+    holding.push(orderManager);
+    this.setState({currentOrder: holding});
+    console.log(this.state.currentOrder);
   },
   render: function(){
     return (
@@ -42,29 +45,35 @@ var OrderContainer = React.createClass({
 
 var CheckOutBanner = React.createClass({
   getInitialState: function(){
-    var currentOrder = null;
+    var currentOrder = this.props.data.currentOrder;
     var menuItems = this.props.data.menuItems;
     return {
       menuItems: menuItems,
-      currentOrder: currentOrder
+      currentOrder: currentOrder,
     }
   },
   componentWillMount:function(){
 
   },
-  addItem: function(item){
-    this.props.addItem(item);
+  addItem: function(item, qty){
+    this.setState({currentOrder: item.name, qty:qty});
+
+    this.props.addItem(this.state.currentOrder, this.state.qty);
+    console.log(this.state);
     return null;
   },
   render: function(){
-    console.log(this);
+    // console.log(this);
     var self = this;
+    var itemOrdered = this.state.currentOrder;
+    var qty = this.state.qty;
     return(
       <div>
         <div className="order-bar">
           <h2>Order Info:</h2>
           <div className="">
             Items Ordered:
+            <span>{qty}{itemOrdered}</span>
           </div>
           <div>
             Total:
@@ -96,45 +105,10 @@ var MenuList = React.createClass({
     // console.log(this);
     // this.setState({itemQty:event.target.value})
   },
-  addItem: function(item){
-    this.props.addItem(item);
+  addItem: function(item, qty){
+    this.props.addItem(item, qty);
   },
   render: function(){
-    //Rendering menu List
-    // console.log(this.props);
-    // var self = this;
-    // var listedItems = this.state.menuItems;
-    // var refinedList = listedItems.map(function(item, index){
-    //   return (
-    //     <li key={index}>
-    //       <div className="col-xs-4">
-    //         {item.name}
-    //       </div>
-    //       <div className="col-xs-4">
-    //         {item.price}
-    //       </div>
-    //       <div className="col-xs-4">
-    //         <div className="input-group">
-    //           <input className="form-control"
-    //             placeholder="Qty"
-    //
-    //             onChange= {self.handleChange}
-    //           />
-    //           <span className="input-group-btn">
-    //             <button className="btn"
-    //               onClick={function(e){
-    //                 e.preventDefault();
-    //                 self.addItem(item);
-    //               }}
-    //             >
-    //               Order This
-    //             </button>
-    //           </span>
-    //         </div>
-    //       </div>
-    //     </li>
-    //   )
-    // });
     return(
       <ul className="order-items">
         <MenuListItem data={this.state} addItem={this.addItem} />
@@ -145,18 +119,19 @@ var MenuList = React.createClass({
 
 var MenuListItem = React.createClass({
   getInitialState: function(){
-    console.log('init', this);
+    // console.log('init', this);
     var menuItems = this.props.data.menuItems;
     return {menuItems: menuItems}
   },
   handleChange:function(event){
 
-    console.log(this.state);
+    // console.log(this.state);
     this.setState({qty:event.target.value});
   },
   addItem: function(item){
-    console.log('menu list item');
-    this.props.addItem(item);
+    console.log('menu list item',this.state);
+
+    this.props.addItem(item, this.state.qty);
   },
   render: function(){
     var self = this;
