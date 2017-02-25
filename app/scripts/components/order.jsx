@@ -24,12 +24,15 @@ var OrderContainer = React.createClass({
     this.setState({menuItems: currentMenuItems});
   },
   addItem: function(item, qty){
-    
-    var orderManager = ({item: item, qty:qty});
-    // var holding = this.state.currentOrder;
-    // holding.push(orderManager);
-    this.state.currentOrder.add({name: item.name, number: qty});
-    console.log(this.state.currentOrder);
+    //Fixes qty if a negative number or no quantity given
+    var minQty = 1;
+    if (minQty > qty || !qty ){
+      this.state.currentOrder.add({name: item.name, number: minQty, price:item.price});
+    } else {
+      var orderManager = ({item: item, qty:qty});
+      this.state.currentOrder.add({name: item.name, number: qty, price:item.price});
+    }
+    console.log('container', this.state.currentOrder.toJSON());
   },
   render: function(){
     return (
@@ -60,7 +63,6 @@ var CheckOutBanner = React.createClass({
     }
   },
   componentWillMount:function(){
-
   },
   addItem: function(item, qty){
     this.setState({addedItem: item.name, qty:qty});
@@ -71,18 +73,26 @@ var CheckOutBanner = React.createClass({
   render: function(){
     // console.log(this);
     var self = this;
+    var orderedItems = this.state.currentOrder.toJSON().map(function(item){
+      console.log(item);
+      return (
+        <li>
+          {item.number}{item.name}{item.price}
+        </li>
+      )
+    });
     // console.log(this.state.currentOrder);
-    var itemOrdered = this.state.addedItem;
-
+    // var itemOrdered = this.state.addedItem;
+    console.log(this.state.currentOrder.toJSON());
     // console.log(this.props.data.currentOrder);
-    var qty = this.state.qty;
+    // var qty = this.state.qty;
     return(
       <div>
         <div className="order-bar">
           <h2>Order Info:</h2>
           <div className="">
             Items Ordered:
-            <span>{qty}{itemOrdered}</span>
+            <span>{orderedItems}</span>
           </div>
           <div>
             Total:
