@@ -24,11 +24,12 @@ var OrderContainer = React.createClass({
     this.setState({menuItems: currentMenuItems});
   },
   addItem: function(item, qty){
-    var orderManager = new models.OrderItem({item: item, qty:qty});
-    var holding = this.state.currentOrder;
-    holding.push(orderManager);
-    this.state.currentOrder.add(holding);
-    // console.log(this.state.currentOrder);
+    
+    var orderManager = ({item: item, qty:qty});
+    // var holding = this.state.currentOrder;
+    // holding.push(orderManager);
+    this.state.currentOrder.add({name: item.name, number: qty});
+    console.log(this.state.currentOrder);
   },
   render: function(){
     return (
@@ -42,6 +43,11 @@ var OrderContainer = React.createClass({
     )
   }
 });
+
+/**********************************
+*
+***********************************/
+
 
 var CheckOutBanner = React.createClass({
   getInitialState: function(){
@@ -59,17 +65,16 @@ var CheckOutBanner = React.createClass({
   addItem: function(item, qty){
     this.setState({addedItem: item.name, qty:qty});
 
-    this.props.addItem(this.state.currentOrder, this.state.qty);
+    this.props.addItem(item, qty);
     // console.log(this.state.currentOrder);
-    return null;
   },
   render: function(){
     // console.log(this);
     var self = this;
-    console.log(this.state.currentOrder);
+    // console.log(this.state.currentOrder);
     var itemOrdered = this.state.addedItem;
 
-    console.log(this.props.data.currentOrder);
+    // console.log(this.props.data.currentOrder);
     var qty = this.state.qty;
     return(
       <div>
@@ -85,12 +90,20 @@ var CheckOutBanner = React.createClass({
           <div>
             Estimated Wait:
           </div>
+          <div>
+
+          </div>
         </div>
         <MenuList data={this.state} addItem={this.addItem}/>
       </div>
     )
   }
 });
+
+/**********************************
+*
+***********************************/
+
 
 var MenuList = React.createClass({
   // propTypes: {
@@ -119,6 +132,10 @@ var MenuList = React.createClass({
     )
   }
 });
+
+/**********************************
+*
+***********************************/
 
 var MenuListItem = React.createClass({
   getInitialState: function(){
@@ -156,7 +173,7 @@ var MenuListItem = React.createClass({
                 onChange= {self.handleChange}
               />
               <span className="input-group-btn">
-                <button className="btn"
+                <button className="order-btn btn"
                   onClick={function(e){
                     e.preventDefault();
                     self.addItem(item);
