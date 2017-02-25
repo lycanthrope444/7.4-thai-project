@@ -3,7 +3,7 @@ var React = require('react');
 var IntroContainer = React.createClass({
   render: function(){
     return (
-      <div className= "container">
+      <div className= "container intro">
         <BannerView />
         <MenuView />
         <OrderView />

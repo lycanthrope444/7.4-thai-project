@@ -4,9 +4,15 @@ var Backbone = require('backbone');
 var models = require('../models/models');
 
 var MenuContainer = React.createClass({
+  getInitialState: function(){
+    var menuItems = new models.MenuItemCollection();
+    return(
+      {menuItems: menuItems}
+    )
+  },
   render: function(){
     return (
-      <div>
+      <div className="container menu">
         <TopBanner />
         Menu Page
         <a href="#order">

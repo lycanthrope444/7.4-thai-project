@@ -5,6 +5,7 @@ $icon-font-path: '../../node_modules/bootstrap-sass/assets/fonts/bootstrap/';
 // Import Bootstrap
 @import '../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap';
 
+//photo credit to https://icstravelgroup.com/top-10-royal-palaces-in-thailand/
 
 *,
 *::before,
@@ -17,6 +18,12 @@ img {
 }
 
 // Intro Page
+.intro{
+  background-image: url("https://icstravelgroup.com/wp-content/uploads/2014/12/The-Grand-Palace-1024x505.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
 .banner{
   height: 50vh;
   width: 100%;
@@ -42,6 +49,7 @@ h2{
 }
 
 .order-items{
+  padding-left:none;
   list-style: none;
 }
 
@@ -50,3 +58,11 @@ h2{
   background-image: linear-gradient(#12e223, #1b8e24);
 }
 // Menu Page
+
+//photo from http://www.bangkok.com/attraction-temple/wat-arun.htm
+
+.menu{
+  height: 100vh;
+  background-image: url("http://static.asiawebdirect.com/m/bangkok/portals/bangkok-com/homepage/attraction-temple/wat-arun/allParagraphs/07/image/wat-arun-1200.jpg");
+  background-size: cover;
+}

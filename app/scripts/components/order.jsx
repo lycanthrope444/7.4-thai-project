@@ -36,7 +36,7 @@ var OrderContainer = React.createClass({
   },
   render: function(){
     return (
-      <div>
+      <div className="order container">
         <CheckOutBanner data={this.state} addItem={this.addItem}/>
         Order Page
         <a href="#menu">
@@ -73,10 +73,12 @@ var CheckOutBanner = React.createClass({
   render: function(){
     // console.log(this);
     var self = this;
-    var orderedItems = this.state.currentOrder.toJSON().map(function(item){
+    var totalPrice = 0;
+    var orderedItems = this.state.currentOrder.toJSON().map(function(item,index){
       console.log(item);
+      totalPrice += item.price*item.number;
       return (
-        <li>
+        <li key={'cob'+index}>
           {item.number}{item.name}{item.price}
         </li>
       )
@@ -95,8 +97,11 @@ var CheckOutBanner = React.createClass({
             <span>{orderedItems}</span>
           </div>
           <div>
-            Total:
+            Total: {totalPrice}
           </div>
+          <button className="submit-btn btn" onClick="">
+            Submit Order
+          </button>
           <div>
             Estimated Wait:
           </div>
@@ -172,10 +177,10 @@ var MenuListItem = React.createClass({
           <div className="col-xs-4">
             {item.name}
           </div>
-          <div className="col-xs-4">
+          <div className="col-xs-2">
             {item.price}
           </div>
-          <div className="col-xs-4">
+          <div className="col-xs-6">
             <div className="input-group">
               <input className="form-control"
                 placeholder="Qty"
@@ -189,7 +194,7 @@ var MenuListItem = React.createClass({
                     self.addItem(item);
                   }}
                 >
-                  Order This
+                  Order
                 </button>
               </span>
             </div>
