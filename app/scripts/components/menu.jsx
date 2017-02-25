@@ -18,6 +18,9 @@ var MenuContainer = React.createClass({
         <a href="#order">
           I'm Ready to order
         </a>
+        <a href="#admin">
+          Employee View
+        </a>
       </div>
     )
   }

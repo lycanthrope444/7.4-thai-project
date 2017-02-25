@@ -40,6 +40,12 @@ img {
 }
 
 // Order Page
+.order{
+  height: 100vh;
+  background-image: url("http://www.tasteforlife.com/sites/default/files/styles/desktop/public/field/image/whythai.jpeg?itok=3XQ-eHtF");
+  background-size: cover;
+}
+
 h2{
   text-align: center;
 }
@@ -51,6 +57,11 @@ h2{
 .order-items{
   padding-left:none;
   list-style: none;
+}
+
+.menu-item{
+  margin-top: 5px;
+  margin-left: 5px;
 }
 
 .order-btn{

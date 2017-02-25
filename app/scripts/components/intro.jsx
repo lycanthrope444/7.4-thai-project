@@ -7,6 +7,9 @@ var IntroContainer = React.createClass({
         <BannerView />
         <MenuView />
         <OrderView />
+        <a href="#admin">
+          Employee View
+        </a>
       </div>
     )
   }

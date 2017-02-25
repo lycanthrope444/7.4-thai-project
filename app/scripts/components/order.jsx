@@ -38,9 +38,11 @@ var OrderContainer = React.createClass({
     return (
       <div className="order container">
         <CheckOutBanner data={this.state} addItem={this.addItem}/>
-        Order Page
         <a href="#menu">
           What's in this?
+        </a>
+        <a href="#admin">
+          Employee View
         </a>
       </div>
     )
@@ -116,7 +118,7 @@ var CheckOutBanner = React.createClass({
 });
 
 /**********************************
-*
+* This can be refactored away I think
 ***********************************/
 
 
@@ -173,14 +175,14 @@ var MenuListItem = React.createClass({
     var listedItems = this.state.menuItems;
     var refinedList = listedItems.map(function(item, index){
       return (
-        <li key={index}>
+        <li className="menu-item" key={index}>
           <div className="col-xs-4">
             {item.name}
           </div>
-          <div className="col-xs-2">
+          <div className="col-xs-2 col-md-4">
             {item.price}
           </div>
-          <div className="col-xs-6">
+          <div className="col-xs-6 col-md-4">
             <div className="input-group">
               <input className="form-control"
                 placeholder="Qty"
