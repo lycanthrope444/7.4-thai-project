@@ -19,19 +19,28 @@ var OrderCollection = Backbone.Collection.extend({
   url: 'https://tiny-lasagna-server.herokuapp.com/collections/nathanorders'
 });
 
-var CurrentOrderItem = Backbone.Collection.extend({
+var ActiveOrder = Backbone.Collection.extend({
   id: '_id'
 });
 
-var CurrentOrderColl = Backbone.Collection.extend({
-  model: CurrentOrderItem
+var ActiveOrderCollection = Backbone.Collection.extend({
+
 });
+// var CurrentOrderItem = Backbone.Collection.extend({
+//   id: '_id'
+// });
+//
+// var CurrentOrderColl = Backbone.Collection.extend({
+//   model: CurrentOrderItem
+// });
 
 module.exports ={
   MenuItem : MenuItem,
   MenuItemCollection: MenuItemCollection,
   OrderItem: OrderItem,
   OrderCollection: OrderCollection,
-  CurrentOrderItem: CurrentOrderItem,
-  CurrentOrderColl: CurrentOrderColl
+  ActiveOrder: ActiveOrder,
+  ActiveOrderCollection: ActiveOrderCollection
+  // CurrentOrderItem: CurrentOrderItem,
+  // CurrentOrderColl: CurrentOrderColl
 };

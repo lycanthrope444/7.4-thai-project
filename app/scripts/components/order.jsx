@@ -7,7 +7,7 @@ var models = require('../models/models');
 var OrderContainer = React.createClass({
   getInitialState: function(){
     var menuItems = new models.MenuItemCollection();
-    var activeOrders = new models.OrderCollection();
+    var activeOrders = new models.ActiveOrderCollection();
     var currentOrder = new models.OrderCollection();
     return {
       menuItems: menuItems,
@@ -28,22 +28,18 @@ var OrderContainer = React.createClass({
     //Fixes qty if a negative number or no quantity given
     var minQty = 1;
     if (minQty > qty || !qty ){
-      this.state.currentOrder.add({name: item.name, number: minQty, price:item.price});
+      this.state.currentOrder.add({name: item.name, number: minQty, price:item.price, itemNumber: item.itemNumber});
     } else {
       var orderManager = ({item: item, qty:qty});
-      this.state.currentOrder.add({name: item.name, number: qty, price:item.price});
+      this.state.currentOrder.add({name: item.name, number: qty, price:item.price, itemNumber: item.itemNumber});
     }
     // console.log('container', this.state.currentOrder.toJSON());
   },
   processOrder: function(){
     var controlArray = this.state.currentOrder.toJSON();
-    var refinedArray = [];
-    // _.each(controlArray, function(item, index){
-    //   if (){
-    //
-    //   }
-    // });
-    console.log(controlArray);
+    var refinedArray = _.sortBy(controlArray, 'itemNumber');
+    this.state.activeOrders.add(refinedArray);
+    console.log(this.state.activeOrders);
   },
   render: function(){
     return (
