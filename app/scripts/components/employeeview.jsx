@@ -4,6 +4,12 @@ var Backbone = require('backbone');
 var models = require('../models/models');
 
 var EmployeeContainer = React.createClass({
+  initial: function(){
+    var orderCollection = new models.ActiveOrderCollection();
+    return {
+      orderCollection: orderCollection
+    };
+  },
   render: function(){
     return (
       <div className="container">

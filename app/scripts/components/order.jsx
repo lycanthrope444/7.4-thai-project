@@ -39,7 +39,8 @@ var OrderContainer = React.createClass({
     var controlArray = this.state.currentOrder.toJSON();
     var refinedArray = _.sortBy(controlArray, 'itemNumber');
     this.state.activeOrders.add(refinedArray);
-    console.log(this.state.activeOrders);
+    // this.setState({currentOrder: {}});
+    console.log(this.state.activeOrders, this.state.currentOrder);
   },
   render: function(){
     return (
@@ -119,12 +120,6 @@ var CheckOutBanner = React.createClass({
           <button className="submit-btn btn" onClick={this.processOrder}>
             Submit Order
           </button>
-          <div>
-            Estimated Wait:
-          </div>
-          <div>
-
-          </div>
         </div>
         <MenuList data={this.state} addItem={this.addItem}/>
       </div>
@@ -194,7 +189,7 @@ var MenuListItem = React.createClass({
           <div className="col-xs-4">
             {item.name}
           </div>
-          <div className="col-xs-2 col-md-4">
+          <div className="col-xs-2 col-md-4 price">
             {item.price}
           </div>
           <div className="col-xs-6 col-md-4">
