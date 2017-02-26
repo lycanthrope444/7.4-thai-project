@@ -40,7 +40,7 @@ var OrderContainer = React.createClass({
   processOrder: function(){
     var controlArray = this.state.currentOrder.toJSON();
     var refinedArray = _.sortBy(controlArray, 'itemNumber');
-    this.state.activeOrders.add(refinedArray);
+    this.state.activeOrders.create(refinedArray);
     // this.setState({currentOrder: {}});
     console.log(this.state.menuItems, this.state.activeOrders, this.state.currentOrder);
   },

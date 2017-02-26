@@ -10,6 +10,11 @@ var EmployeeContainer = React.createClass({
       orderCollection: orderCollection
     };
   },
+  componentWillMount:function(){
+    // this.state.orderColection.fetch.done(function(){
+    //   // console.log(this.state.orderCollection);
+    // });
+  },
   render: function(){
     return (
       <div className="container">
