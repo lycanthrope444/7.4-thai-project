@@ -1,3 +1,4 @@
+var _ = require('underscore');
 var React = require('react');
 var Backbone = require('backbone');
 
@@ -16,10 +17,10 @@ var OrderContainer = React.createClass({
   },
   componentWillMount: function(){
     var currentMenuItems = [
-      {name: 'Spring rolls', price: 5},
-      {name: 'Tom-Ka Gai', price: 5},
-      {name: 'Pad Thai', price: 8},
-      {name: 'Yellow Curry', price: 9}
+      {name: 'Spring rolls', price: 5, itemNumber: 1},
+      {name: 'Tom-Ka Gai', price: 5, itemNumber: 2},
+      {name: 'Pad Thai', price: 8, itemNumber: 3},
+      {name: 'Yellow Curry', price: 9, itemNumber: 4}
     ]
     this.setState({menuItems: currentMenuItems});
   },
@@ -32,12 +33,26 @@ var OrderContainer = React.createClass({
       var orderManager = ({item: item, qty:qty});
       this.state.currentOrder.add({name: item.name, number: qty, price:item.price});
     }
-    console.log('container', this.state.currentOrder.toJSON());
+    // console.log('container', this.state.currentOrder.toJSON());
+  },
+  processOrder: function(){
+    var controlArray = this.state.currentOrder.toJSON();
+    var refinedArray = [];
+    // _.each(controlArray, function(item, index){
+    //   if (){
+    //
+    //   }
+    // });
+    console.log(controlArray);
   },
   render: function(){
     return (
       <div className="order container">
-        <CheckOutBanner data={this.state} addItem={this.addItem}/>
+        <CheckOutBanner
+          data={this.state}
+          addItem={this.addItem}
+          processOrder={this.processOrder}
+        />
         <a href="#menu">
           What's in this?
         </a>
@@ -72,12 +87,16 @@ var CheckOutBanner = React.createClass({
     this.props.addItem(item, qty);
     // console.log(this.state.currentOrder);
   },
+  processOrder(event){
+    event.preventDefault();
+    this.props.processOrder();
+  },
   render: function(){
     // console.log(this);
     var self = this;
     var totalPrice = 0;
     var orderedItems = this.state.currentOrder.toJSON().map(function(item,index){
-      console.log(item);
+      // console.log(item);
       totalPrice += item.price*item.number;
       return (
         <li key={'cob'+index}>
@@ -87,7 +106,7 @@ var CheckOutBanner = React.createClass({
     });
     // console.log(this.state.currentOrder);
     // var itemOrdered = this.state.addedItem;
-    console.log(this.state.currentOrder.toJSON());
+    // console.log(this.state.currentOrder.toJSON());
     // console.log(this.props.data.currentOrder);
     // var qty = this.state.qty;
     return(
@@ -101,7 +120,7 @@ var CheckOutBanner = React.createClass({
           <div>
             Total: {totalPrice}
           </div>
-          <button className="submit-btn btn" onClick="">
+          <button className="submit-btn btn" onClick={this.processOrder}>
             Submit Order
           </button>
           <div>
