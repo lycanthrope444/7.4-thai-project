@@ -16,13 +16,15 @@ var OrderContainer = React.createClass({
     }
   },
   componentWillMount: function(){
+    var menuItems = new models.MenuItemCollection();
     var currentMenuItems = [
       {name: 'Spring rolls', price: 5, itemNumber: 1},
       {name: 'Tom-Ka Gai', price: 5, itemNumber: 2},
       {name: 'Pad Thai', price: 8, itemNumber: 3},
       {name: 'Yellow Curry', price: 9, itemNumber: 4}
     ]
-    this.setState({menuItems: currentMenuItems});
+    menuItems.add(currentMenuItems);
+    this.setState({menuItems: menuItems});
   },
   addItem: function(item, qty){
     //Fixes qty if a negative number or no quantity given
@@ -40,7 +42,7 @@ var OrderContainer = React.createClass({
     var refinedArray = _.sortBy(controlArray, 'itemNumber');
     this.state.activeOrders.add(refinedArray);
     // this.setState({currentOrder: {}});
-    console.log(this.state.activeOrders, this.state.currentOrder);
+    console.log(this.state.menuItems, this.state.activeOrders, this.state.currentOrder);
   },
   render: function(){
     return (
@@ -182,7 +184,7 @@ var MenuListItem = React.createClass({
   },
   render: function(){
     var self = this;
-    var listedItems = this.state.menuItems;
+    var listedItems = this.state.menuItems.toJSON();
     var refinedList = listedItems.map(function(item, index){
       return (
         <li className="menu-item" key={index}>

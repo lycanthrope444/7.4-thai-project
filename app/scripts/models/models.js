@@ -1,7 +1,7 @@
 var Backbone = require('backbone');
 
 var MenuItem = Backbone.Model.extend({
-  id: '_id'
+  idAttribute: '_id'
 });
 
 var MenuItemCollection = Backbone.Collection.extend({
@@ -11,20 +11,20 @@ var MenuItemCollection = Backbone.Collection.extend({
 
 //This may not be necessary?
 var OrderItem = Backbone.Model.extend({
-  id: '_id'
+  // idAttribute: '_id'
 });
 
 var OrderCollection = Backbone.Collection.extend({
   model: OrderItem,
-  url: 'https://tiny-lasagna-server.herokuapp.com/collections/nathanorders'
 });
 
 var ActiveOrder = Backbone.Collection.extend({
-  id: '_id'
+  idAttribute: '_id'
 });
 
 var ActiveOrderCollection = Backbone.Collection.extend({
-
+  model: MenuItem,
+  url: 'https://tiny-lasagna-server.herokuapp.com/collections/nathanorders'
 });
 // var CurrentOrderItem = Backbone.Collection.extend({
 //   id: '_id'

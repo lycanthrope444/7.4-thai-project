@@ -19,7 +19,7 @@ var BannerView = React.createClass({
   render: function(){
     return (
       <div className="banner">
-        <h1>Majestic Thai</h1>
+        <h1>Welcome to Majestic Thai!</h1>
       </div>
     )
   }
